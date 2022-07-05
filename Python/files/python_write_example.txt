@@ -1,0 +1,2 @@
+Python is the modern day language. It is used for web development.
+This line will be appended to the existing file.
