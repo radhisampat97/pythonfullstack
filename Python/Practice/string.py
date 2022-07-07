@@ -41,26 +41,41 @@
 
 ##
 ## counting of string
-# Understanding the counting of sub string we use count() method
+### Understanding the counting of sub string we use count() method
+##
+###   main_string.count(substring)
+##
+###     main_string.count(substring, beinning, end)
+##
+##
+##main_string = input('Enter main string: ')
+##sub_string = input('Enter sub string: ')
+##
+##
+##num = main_string.count(sub_string, 328, -290)
+##print(num)
+##
+### count() method using starting and indexing numbers
+##
+##main_string = input('Enter main string: ')
+##sub_string = input('Enter sub string: ')
+####print(len(main_string))
+##
+##
+##num = main_string.count(sub_string, 0, 74)
 
-#   main_string.count(substring)
 
-#     main_string.count(substring, beinning, end)
+## formatting a string
 
+fname = input('Enter your first name:')
+mname = input('Enter your middle name:')
+lname = input('Enter your last name:')
 
-main_string = input('Enter main string: ')
-sub_string = input('Enter sub string: ')
+fullname = fname + ' ' + mname + ' ' + lname
+#print(fullname)
 
+print("My name is {}".format(fname))
 
-num = main_string.count(sub_string, 328, -290)
-print(num)
+print("This is my fullname {} {} {}".format(fname,mname,lname))
 
-# count() method using starting and indexing numbers
-
-main_string = input('Enter main string: ')
-sub_string = input('Enter sub string: ')
-##print(len(main_string))
-
-
-num = main_string.count(sub_string, 0, 74)
-print(num)
+print(f'This is my fullname {fname} {mname} {lname}')

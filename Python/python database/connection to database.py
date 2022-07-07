@@ -77,6 +77,8 @@ def createDatabase(cursor):
     except mysql.connector.Error as err:
             print("Failed database creation: {}.".format(err))
             exit(1)
+
+createDatabase(cursor)            
 try:
     cursor.execute("USE {}".format(DB_NAME))
 except mysql.connector.Error as err:
