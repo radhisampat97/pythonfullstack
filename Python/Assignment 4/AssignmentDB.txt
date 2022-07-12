@@ -1,0 +1,324 @@
+Assignment 
+
+Q1) Countries and Cities 
+
+Country Table 
+
+create table country (
+	id int,
+    country_name varchar(128),
+    PRIMARY KEY (id)
+);
+
+City Table 
+
+create table city (
+	id int,
+    city_name varchar(128),
+    postal_code varchar(16),
+    country_id int,
+    PRIMARY KEY (id),
+    FOREIGN KEY (country_id) REFERENCES country(id)
+);
+
+------------------------------------------------------------------
+
+Q2) Companies and Plans
+
+Company 
+
+create table company (
+	id int,
+    company_name varchar(255),
+    VAT_ID varchar(16),
+    email varchar(255),
+    city_id int,
+    company_address varchar(255),
+    details text,
+    is_active bool,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (city_id) REFERENCES countrycity(id)
+
+
+);
+
+User_Account 
+
+create table user_account (
+	id int,
+    first_name varchar(128),
+    last_name varchar(128),
+    email varchar(255),
+    user_name varchar(255),
+    password varchar(255),
+    is_active bool,
+    ts_created timestamp,
+    ts_updated timestamp,
+    company_id int,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (company_id) REFERENCES company(id)
+
+);
+
+Invoice_Company
+
+create table invoice_company (
+	id int,
+    company_id int,
+    invoice_amount decimal(10,2),
+    invoice_period varchar(255),
+    invoice_details text,
+    ts_issued timestamp,
+    ts_paid timestamp NULL,
+    ts_cancelled timestamp NULL,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (company_id) REFERENCES company(id)
+);
+
+Plan
+
+create table plan (
+	id int,
+    plan_name varchar(64),
+    details varchar(255),
+    rooms_min int,
+	rooms_max int NULL,
+    monthly_price decimal(10,2),
+    
+    PRIMARY KEY (id)
+);
+
+Company_Plan
+
+Company_Plan_Status_Events
+
+create table company_plan_status_events (
+	id int,
+    company_plan_id int,
+    company_plan_status_catalog_id int,
+    ts timestamp,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (company_plan_id) REFERENCES company_plan(id),
+    FOREIGN KEY (company_plan_status_catalog_id) REFERENCES company_plan_status_catalog(id)
+    
+
+);
+
+Company_Plan_Status_Catalog
+
+create table company_plan_status_catalog (
+	id int,
+    status_name varchar(64),
+    plan_is_active bool,
+    
+    PRIMARY KEY (id)
+
+
+);
+
+Company_Plan
+
+create table company_plan (
+id int,
+company_id int,
+plan_id int,
+ts_created timestamp,
+ts_activated timestamp,
+ts_deactivated timestamp,
+
+PRIMARY KEY (id),
+FOREIGN KEY (company_id) REFERENCES company(id),
+FOREIGN KEY (plan_id) REFERENCES plan(id)
+	
+);
+
+------------------------------------------------------------------------------------
+Q3) Hotel and Rooms
+
+Hotel
+
+create table hotel (
+	id int,
+    hotel_name varchar(128),
+    description text,
+    company_id int,
+    city_id int,
+    category_id int,
+    is_active bool,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (company_id) REFERENCES companyplans.company(id),
+    FOREIGN KEY (city_id) REFERENCES countrycity.city(id),
+    FOREIGN KEY (category_id) REFERENCES category(id)	
+);
+
+Category
+
+create table category (
+	id int,
+    category_name varchar(128),
+    
+    PRIMARY KEY (id)
+	
+);
+
+Room
+
+create table room (
+	id int,
+    room_name varchar(128),
+    description text,
+    hotel_id int,
+    room_type_id int,
+    current_price decimal(10,2),
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (hotel_id) REFERENCES hotel(id),
+    FOREIGN KEY (room_type_id) REFERENCES room_type(id)
+	
+);
+
+Room_Type
+
+create table room_type (
+	id int,
+    type_name varchar(128),
+
+	PRIMARY KEY (id)
+);
+ 
+
+----------------------------------------------------------------------------------------
+Q4) Reservations 
+
+Room_Reserved 
+
+create table room_reserved (
+	id int,
+    reservation_id int,
+    room_id int,
+    price decimal(10,2),
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (reservation_id) REFERENCES reservation(id),
+    FOREIGN KEY (room_id) REFERENCES hotelroom.room(id) 
+);
+
+Reservation
+
+create table reservation(
+	id int,
+    guest_id int,
+    start_date date,
+    end_date date,
+    ts_created timestamp,
+    ts_updated timestamp,
+    discount_percent decimal(5,2),
+    total_price decimal(10,2),
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (guest_id) REFERENCES guests.guest(id)
+
+);
+
+Channel 
+
+create table channel (
+		id int,
+        channel_name varchar(255),
+        details text,
+        
+        PRIMARY KEY (id)
+);
+
+Channel_Used
+
+create table channel_used (
+	room_id int,
+    channel_id int,
+    
+    PRIMARY KEY (room_id, channel_id),
+    FOREIGN KEY (room_id) REFERENCES hotelroom.room(id),
+    FOREIGN KEY (channel_id) REFERENCES channel(id)
+		
+);
+
+Synchronization
+
+create table synchronization (
+	id int,
+    reservation_id int,
+    channel_id int,
+    message_sent text,
+    message_received text NULL,
+    ts timestamp,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (reservation_id) REFERENCES reservation(id),
+    FOREIGN KEY (channel_id) REFERENCES channel(id)
+		
+);
+
+Reservation_Status_Catalog
+
+create table reservation_status_catalog (
+	id int,
+    status_name varchar(50),
+    
+    PRIMARY KEY (id)
+);
+
+Reservation_Status_Events
+
+create table reservation_status_events (
+	id int,
+    reservation_id int,
+    reservation_status_catalog_id int,
+    details text,
+    ts_created timestamp,
+    
+    PRIMARY KEY (id),
+    FOREIGN KEY (reservation_id) REFERENCES reservation(id),
+    FOREIGN KEY (reservation_status_catalog_id) REFERENCES reservation_status_catalog(id)
+);
+
+---------------------------------------------------------------------------------------
+
+Q5) Guests
+
+Guest 
+
+create table guest(
+	id int,
+    first_name varchar(128),
+    last_name varchar(128),
+    email varchar(255),
+    phone varchar(255) NULL,
+    address varchar(255) NULL,
+    details text NULL,
+    
+    PRIMARY KEY (id)
+);
+
+Invoice_Guest 
+
+create table invoice_guest(
+	id int,
+    	guest_id int,
+    	reservation_id int,
+    	invoice_amount decimal(10,2),
+    	ts_issued timestamp,
+	ts_paid timestamp NULL,
+    	ts_cancelled timestamp NULL,	
+	PRIMARY KEY (id),
+    	FOREIGN KEY (guest_id) REFERENCES guest(id),
+    	FOREIGN KEY (reservation_id) REFERENCES reservations.reservation(id)
+);
+
+
+
+

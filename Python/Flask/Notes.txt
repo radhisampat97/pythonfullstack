@@ -1,0 +1,6 @@
+HTTP verbs
+
+1. Get: Retrieve something
+2. POST: Retrieve data and use it
+3. PUT: Make sure something is there to update
+4. DELETE: Remove something
