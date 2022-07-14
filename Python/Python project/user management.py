@@ -19,7 +19,6 @@ cur = con.cursor()
 
 
 
-
 def registration():
 ##
     insert_query = """insert into user
