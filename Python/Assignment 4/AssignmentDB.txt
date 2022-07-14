@@ -13,7 +13,7 @@ create table country (
 City Table 
 
 create table city (
-	id int,
+    id int,
     city_name varchar(128),
     postal_code varchar(16),
     country_id int,
@@ -28,7 +28,7 @@ Q2) Companies and Plans
 Company 
 
 create table company (
-	id int,
+    id int,
     company_name varchar(255),
     VAT_ID varchar(16),
     email varchar(255),
@@ -36,17 +36,14 @@ create table company (
     company_address varchar(255),
     details text,
     is_active bool,
-    
     PRIMARY KEY (id),
     FOREIGN KEY (city_id) REFERENCES countrycity(id)
-
-
 );
 
 User_Account 
 
 create table user_account (
-	id int,
+    id int,
     first_name varchar(128),
     last_name varchar(128),
     email varchar(255),
@@ -56,16 +53,14 @@ create table user_account (
     ts_created timestamp,
     ts_updated timestamp,
     company_id int,
-    
     PRIMARY KEY (id),
     FOREIGN KEY (company_id) REFERENCES company(id)
-
 );
 
 Invoice_Company
 
 create table invoice_company (
-	id int,
+    id int,
     company_id int,
     invoice_amount decimal(10,2),
     invoice_period varchar(255),
@@ -96,7 +91,7 @@ Company_Plan
 Company_Plan_Status_Events
 
 create table company_plan_status_events (
-	id int,
+    id int,
     company_plan_id int,
     company_plan_status_catalog_id int,
     ts timestamp,
@@ -104,20 +99,15 @@ create table company_plan_status_events (
     PRIMARY KEY (id),
     FOREIGN KEY (company_plan_id) REFERENCES company_plan(id),
     FOREIGN KEY (company_plan_status_catalog_id) REFERENCES company_plan_status_catalog(id)
-    
-
 );
 
 Company_Plan_Status_Catalog
 
 create table company_plan_status_catalog (
-	id int,
+    id int,
     status_name varchar(64),
     plan_is_active bool,
-    
     PRIMARY KEY (id)
-
-
 );
 
 Company_Plan
@@ -132,8 +122,7 @@ ts_deactivated timestamp,
 
 PRIMARY KEY (id),
 FOREIGN KEY (company_id) REFERENCES company(id),
-FOREIGN KEY (plan_id) REFERENCES plan(id)
-	
+FOREIGN KEY (plan_id) REFERENCES plan(id)	
 );
 
 ------------------------------------------------------------------------------------
@@ -142,7 +131,7 @@ Q3) Hotel and Rooms
 Hotel
 
 create table hotel (
-	id int,
+    id int,
     hotel_name varchar(128),
     description text,
     company_id int,
@@ -178,8 +167,7 @@ create table room (
     
     PRIMARY KEY (id),
     FOREIGN KEY (hotel_id) REFERENCES hotel(id),
-    FOREIGN KEY (room_type_id) REFERENCES room_type(id)
-	
+    FOREIGN KEY (room_type_id) REFERENCES room_type(id)	
 );
 
 Room_Type
@@ -198,7 +186,7 @@ Q4) Reservations
 Room_Reserved 
 
 create table room_reserved (
-	id int,
+    id int,
     reservation_id int,
     room_id int,
     price decimal(10,2),
@@ -211,7 +199,7 @@ create table room_reserved (
 Reservation
 
 create table reservation(
-	id int,
+    id int,
     guest_id int,
     start_date date,
     end_date date,
@@ -222,13 +210,12 @@ create table reservation(
     
     PRIMARY KEY (id),
     FOREIGN KEY (guest_id) REFERENCES guests.guest(id)
-
 );
 
 Channel 
 
 create table channel (
-		id int,
+	  id int,
         channel_name varchar(255),
         details text,
         
@@ -238,19 +225,18 @@ create table channel (
 Channel_Used
 
 create table channel_used (
-	room_id int,
+    room_id int,
     channel_id int,
     
     PRIMARY KEY (room_id, channel_id),
     FOREIGN KEY (room_id) REFERENCES hotelroom.room(id),
-    FOREIGN KEY (channel_id) REFERENCES channel(id)
-		
+    FOREIGN KEY (channel_id) REFERENCES channel(id)		
 );
 
 Synchronization
 
 create table synchronization (
-	id int,
+    id int,
     reservation_id int,
     channel_id int,
     message_sent text,
@@ -259,14 +245,13 @@ create table synchronization (
     
     PRIMARY KEY (id),
     FOREIGN KEY (reservation_id) REFERENCES reservation(id),
-    FOREIGN KEY (channel_id) REFERENCES channel(id)
-		
+    FOREIGN KEY (channel_id) REFERENCES channel(id)		
 );
 
 Reservation_Status_Catalog
 
 create table reservation_status_catalog (
-	id int,
+    id int,
     status_name varchar(50),
     
     PRIMARY KEY (id)
@@ -275,7 +260,7 @@ create table reservation_status_catalog (
 Reservation_Status_Events
 
 create table reservation_status_events (
-	id int,
+    id int,
     reservation_id int,
     reservation_status_catalog_id int,
     details text,
@@ -293,7 +278,7 @@ Q5) Guests
 Guest 
 
 create table guest(
-	id int,
+    id int,
     first_name varchar(128),
     last_name varchar(128),
     email varchar(255),
