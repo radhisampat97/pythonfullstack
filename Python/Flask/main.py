@@ -1,9 +1,15 @@
-from flask import Flask, request
-from flask_restful import Resource, Api
-from flask_jwt import JWT, jwt_required
-
+"""
+    This main.py file is the main file for this project.
+    The server starts from here. All the endpoints are registered in this file.
+    This file helps in routing the incoming api request to the appropriate resource.
+    This file has all the main imports required to create the server
+"""
+from flask import Flask
+from flask_restful import Api
+from flask_jwt import JWT
+from user import UserRegister
 from security import authenticate, identity
-
+from items import Item, ItemList
 
 app = Flask(__name__)
 app.secret_key = 'radhika'
@@ -11,42 +17,12 @@ api = Api(app)
 
 jwt = JWT(app, authenticate, identity)
 
-items = []
+# Item and ItemList is shifted to items .py file and the required importsare added  on line 12
 
-#class Student(Resource):
-#    def get(self, name):
-#       return {'student': name}
-
-
-
-class Item(Resource):
-    @jwt_required()
-    def get(self, name):
-        item = next(filter(lambda x: x['name'] == name, items), None)
-        return {'item': 'item'}, 200 if item else 404
-
-
-    def post(self, name):
-        data = request.get_json()
-        if next(filter(lambda x: x['name'] == data['name'], items), None):
-            return {'message': "An item with name {} already exists.".format(data['name'])}, 400
-        else:
-            item = {'name': data ['name'], 'price': data['price']}
-            items.append(item)
-            return items, 201
-
-
-class ItemList(Resource):
-    def get(self):
-        return {'items': items}
-
-
-
-
-#api.add_resource(Student, '/student/<string:name>')    #http://127.0.0.1:5000/student/Radhika
-#app.run(port=5000)
-
-api.add_resource(Item, '/item/<string:name>')    #http://127.0.0.1:5000/student/Radhika
+api.add_resource(Item, '/item')     #http://127.0.0.1:5000/student/Shriya
 api.add_resource(ItemList, '/items')
+api.add_resource(UserRegister, '/register')
+# print('This is from main.py:', __name__)
 
-app.run(port=5000, debug = True)
+if __name__ == '__main__':        # If the main.py file is executed then only the server will start
+    app.run(port=5000, debug=True)
