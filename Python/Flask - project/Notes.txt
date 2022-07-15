@@ -1,0 +1,71 @@
+HTTP verbs
+
+1. Get: Retrieve something
+2. POST: Retrieve data and use it
+3. PUT: Make sure something is there to update
+4. DELETE: Remove something
+
+{
+    "emp_id": 1,
+    "first_name": "Radhika",
+    "last_name": "Sampat",
+    "email": "radhika.sampat@gmail.com",
+    "mobile": 9856021365,
+    "location": "Mumbai",
+    "job_role": " Developer",
+    "hire_date": "2019-06-15",
+    "salary": 1500000.0
+
+}
+
+{
+    "emp_id": 2,
+    "first_name": "Shriya",
+    "last_name": "Shetty",
+    "email": "shriya.shetty@gmail.com",
+    "mobile": 7548452692,
+    "location": "Mumbai",
+    "job_role": " Developer",
+    "hire_date": "2019-06-15",
+    "salary": 1900000.0
+
+}
+
+{
+    "emp_id": 3,
+    "first_name": "Shaun",
+    "last_name": "Charles",
+    "email": "shaun.charles@gmail.com",
+    "mobile": 9024601323,
+    "location": "Bangalore",
+    "job_role": " Developer",
+    "hire_date": "2018-04-25",
+    "salary": 2000000.0
+
+}
+
+{
+    "emp_id": 4,
+    "first_name": "Supriya",
+    "last_name": "K",
+    "email": "supriya.k@gmail.com",
+    "mobile": 7485695210,
+    "location": "Delhi",
+    "job_role": " Manager",
+    "hire_date": "2014-08-15",
+    "salary": 2900000.0
+
+}
+
+{
+    "emp_id": 5,
+    "first_name": "Jack",
+    "last_name": "Josh",
+    "email": "jack.josh@gmail.com",
+    "mobile": 9986523014,
+    "location": "Goa",
+    "job_role": " Head",
+    "hire_date": "2012-07-5",
+    "salary": 3000000.0
+
+}
