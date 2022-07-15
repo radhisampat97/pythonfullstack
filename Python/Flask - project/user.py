@@ -88,5 +88,9 @@ class UserRegister(Resource):
         # DatabaseConfig.commitClose()
         connection.commit()
         connection.close()
+<<<<<<< HEAD
         return {"message" : "User created successfully!"}, 201
         
+=======
+        return {"message" : "User created successfully!"}, 201
+>>>>>>> anurag
