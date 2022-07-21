@@ -1,0 +1,27 @@
+Library - 
+follow all steps given below, but for book.
+1. title of the book
+2. author name
+3. number of pages
+4. paperback or hard cover
+5. used
+6. discount
+7. delivery charges
+8. shipping address
+9. price
+10. returnable
+
+1. created a class
+2. we created an empty list of items
+3. Started performing CRUD operations on items list
+4. created a get method - To get all elements from the list
+5. method for - getting single element out of the list
+6. method for - creating a new element in the list
+7. method for - updating the elements in the list
+8. method for - deleting a single element
+
+
+
+
+
+

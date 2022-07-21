@@ -27,7 +27,7 @@ class Item(Resource):
         data = Item.parser.parse_args()
         item = ItemModule.findItem(data['name'])
         if item:
-            return item
+            return item.json()
         return {'message': 'Item not found!'}, 404
        
         # data = request.get_json()
@@ -40,13 +40,13 @@ class Item(Resource):
         data = Item.parser.parse_args()
         if ItemModule.findItem(data['name']):
             return {'message' : "An item with name '{}' already exists.".format(data['name'])}, 400
-        item = {'name' : data['name'], 'price' : data['price']}
+        item = ItemModule(name = data['name'], price = data['price'])
         
         try:
-            ItemModule.insert(item)
+            item.insert()
         except:
             return {'message': 'An error occured while insertingn item'}, 500
-        return item, 201
+        return item.json(), 201
 
         # data = request.get_json()
         # if next(filter(lambda x : x['name'] == data['name'], items), None):
@@ -79,20 +79,20 @@ class Item(Resource):
     def put(self):
         data = Item.parser.parse_args()
         item = ItemModule.findItem(data['name'])
-        updatedItem = {'name': data['name'], 'price': data['price']}
+        updatedItem = ItemModule(name = data['name'], price = data['price'])
 
         if item is None:
             try:
-                ItemModule.insert(updatedItem)
+                updatedItem.insert()
             except:
                 return {"message": "An error occured while inserting item"}, 500
         
         else:
             try:
-                ItemModule.update(updatedItem)
+                updatedItem.update()
             except:
                 return{"message": "An error occured while inserting item"}, 500
-        return updatedItem
+        return updatedItem.json()
 
         # parser = reqparse.RequestParser()
         # parser.add_argument('price',

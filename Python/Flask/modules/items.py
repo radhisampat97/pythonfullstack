@@ -19,27 +19,29 @@ class ItemModule:
         connection.close()
    
         if row:
-            return {'item': {
-                'name': row[0],
-                'price': row[1]
-            }}
+            return cls(*row)
+            
+            
+            
+            # # {'item': {
+            #     'name': row[0],
+            #     'price': row[1]
+            # }}
 
-    @classmethod
     def insert(cls, item):
         connection, cursor = DatabaseConfig('data').createConnection()  # This is to create connection with database 'data' file and to execute it
   
         query = "INSERT INTO items VALUES (?, ?)"
-        result = cursor.execute(query, (item['name'], item['price']))
+        result = cursor.execute(query, (self.name, self.price))
         
         connection.commit()
         connection.close()  
 
-    @classmethod
-    def update(cls, item):
+    def update(self):
         connection, cursor = DatabaseConfig('data').createConnection()  # This is to create connection with database 'data' file and to execute it
   
         query = "UPDATE items SET price=? WHERE name=?"
-        result = cursor.execute(query, (item['price'], item['name']))
+        result = cursor.execute(query, (self.price, self.name))
         
         connection.commit()
         connection.close()
